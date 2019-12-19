@@ -181,8 +181,8 @@ int main() {
     //(int m, unsigned char *text, int n, int p_size, int alphabet, int
     //*state_transition, unsigned int *state_supply, unsigned int *state_final ) {
 
-    cuda_ac1(M, charText, text.size(), D, 26, goToTable, f, out);
-    // cuda_ac2(M,charText,text.size(),D,26,goToTable,f,out);
+    cuda_ac1(M, charText, text.size(), D, MAXC, goToTable, f, out);
+    // cuda_ac2(M,charText,text.size(),D,MAXC,goToTable,f,out);
 
     return 0;
 }
