@@ -14,7 +14,6 @@ GPU: Nvidia GTX 1060 3G
 | GPU | ac-bits-shared.cpp | 29.36ms |
 | GPU | ac-shared-bank-conflict-free.cpp | 8.70ms |
 
-# READ ME BEFORE
 # boyer-moore-aho-corasick-in-cuda
 Parallel Implementation of Boyer Moore and Aho-Corasick Algorithms in Cuda
 
