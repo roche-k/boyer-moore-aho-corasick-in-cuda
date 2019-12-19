@@ -38,7 +38,7 @@ __global__ void shared_kernel1 ( unsigned char *d_text, unsigned int *d_out, int
 		
 		for ( column = startThread; ( column < stopThread && globalMemIndex + column < n ); column++ ) {
 		
-			while ( ( s = tex2D ( tex_go_to_function, s_array[column]-'A', r ) ) == -1 )
+			while ( ( s = tex2D ( tex_go_to_function, s_array[column], r ) ) == -1 )
 				r = tex1Dfetch ( tex_failure_function, r );
 			r = s;
 			

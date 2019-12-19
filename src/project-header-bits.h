@@ -13,7 +13,7 @@ using namespace std;
 
 const int MAXS = M*D + 1;
  
-const int MAXC = 26;
+const int MAXC = 256;
  
 unsigned int out[MAXS];
  
@@ -66,7 +66,7 @@ int buildMatchingMachine(string arr[], int k)
         // Insert all characters of current word in arr[]
         for (int j = 0; j < word.size(); ++j)
         {
-            int ch = word[j] - 'A';
+            int ch = word[j];
  
             // Allocate a new node (create a new state) if a
             // node for ch doesn't exist.

@@ -15,7 +15,7 @@ using namespace std;
 const int MAXS = 19;
  
 // Maximum number of characters in input alphabet
-const int MAXC = 26;
+const int MAXC = 256;
  
 // OUTPUT FUNCTION IS IMPLEMENTED USING out[]
 // Bit i in this mask is one if the word with index i
@@ -57,7 +57,7 @@ int buildMatchingMachine(string arr[], int k)
         // Insert all characters of current word in arr[]
         for (int j = 0; j < word.size(); ++j)
         {
-            int ch = word[j] - 'A';
+            int ch = word[j];
  
             // Allocate a new node (create a new state) if a
             // node for ch doesn't exist.
@@ -146,21 +146,27 @@ int buildMatchingMachine(string arr[], int k)
 // currentState - The current state of the machine. Must be between
 //                0 and the number of states - 1, inclusive.
 // nextInput - The next character that enters into the machine.
-int findNextState(int currentState, char nextInput)
+int findNextState(int currentState, unsigned char nextInput)
 {
     int answer = currentState;
-    int ch = nextInput - 'A';
+    unsigned int ch = nextInput;
  
     // If goto is not defined, use failure function
-    while (g[answer][ch] == -1)
+    while (g[answer][ch] == -1) {
+        if (f[answer] < 0) {
+            return -1;
+        }
         answer = f[answer];
+    }
  
-    return g[answer][ch];
+    //printf("in currentState %d nextInput %u out answer %d out %d\n", 
+    //            currentState, nextInput, answer, g[answer][ch]);
+    return g[answer][ch] < 0 ? -1 : g[answer][ch];
 }
  
 // This function finds all occurrences of all array words
 // in text.
-void searchWords(string arr[], int k, string text)
+void searchWords(string arr[], int k, string& text)
 {
     // Preprocess patterns.
     // Build machine with goto, failure and output functions
@@ -178,18 +184,24 @@ void searchWords(string arr[], int k, string text)
         currentState = findNextState(currentState, text[i]);
  
         // If match not found, move to next state
+        if (currentState < 0 ) {
+            currentState = 0;
+            continue;
+        }
         if (out[currentState] == 0)
-             continue;
-         /* for (int j = 0; j < k; ++j)
-                {
-                    if (out[currentState] & (1 << j))
-                    {
-                       // cout << "Word " << arr[j] << " appears from "
-                        //    << i - arr[j].size() + 1 << " to " << i << endl;
-                        count++;
-                    }
-                }*/
-                    count+=out[currentState];
+            continue;
+        /*for (int j = 0; j < k; ++j)
+        {
+            if (out[currentState] & (1 << j))
+            {
+                cout << "Word " << arr[j] << " appears from "
+                    << i - arr[j].size() + 1 << " to " << i << endl;
+                cout << text[i - arr[j].size() + 1] << " " 
+                    << text[i - arr[j].size() + 2] << " "
+                    << text[i] << endl;
+            }
+        }*/
+     count+=out[currentState];
     }
         
     stop = clock();

@@ -99,7 +99,7 @@ void texture_memory_kernel_wrapper ( int m, unsigned char *text, int n, int p_si
 	cudaEventRecord ( start, 0 );
 	
 	//Executing kernel in the device
-	texture_memory_kernel<<dimGrid, dimBlock>>>( d_text, d_out, m, n, p_size, alphabet, numBlocks );
+	texture_memory_kernel<<<dimGrid, dimBlock>>>( d_text, d_out, m, n, p_size, alphabet, numBlocks );
 	checkCUDAError("kernel invocation");
 	
 	cudaEventRecord ( stop, 0 );

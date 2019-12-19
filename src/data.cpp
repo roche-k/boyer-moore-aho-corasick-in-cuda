@@ -5,18 +5,17 @@ using namespace std;
 
 int main(){
 	
-	int a[100];
-	unsigned int * b = (unsigned int*)a;
-
-	string P="ATGC";
 	double n;
+	char c;
 	cin>>n;
 	
 	ofstream output_file("data.txt");
 
 	srand(time(NULL));
-	for(long long int i=0; i<(int) 1024*1024*n; i++)
-		output_file<<P[rand() % 4];
+	for(long long int i=0; i<(int) 1024*1024*n; i++) {
+		c = rand();
+		output_file<<c;
+	}
 	
 
 }
